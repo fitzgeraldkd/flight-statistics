@@ -31,7 +31,6 @@ I plan on adding additional helper functions to help with rendering the table, s
 ## To-Do
 
 - Finish the `FilterForm` component. Currently all of the requested options are displayed in the drop down menus. The airports dropdown does not yet display which options have been selected.
-- Render a table with the results. The data is structured in a way that should make this
-  - Consider adding a separate component for a table row if the `Results` component becomes too complex.
+- Render a table with the results based on the applied filters. The data stored in state has already been stored with this task in mind.
 - Refactor the helper function in `databaseHelper.js`. It works fine as is but has nested `for` loops that could be cleaned up to be more readable.
-- Write tests
+- Write tests, especially for the helper functions parsing the data and calculating averages.
