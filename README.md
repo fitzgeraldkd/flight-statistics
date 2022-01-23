@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Flight Statistics
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Running
 
-## Available Scripts
+To run the app, clone this repository to your local computer then navigate to the root directory in your terminal. Then run the following commands:
 
-In the project directory, you can run:
+```bash
+npm install
+npm run
+```
 
-### `npm start`
+By default the application will run on `localhost:3000`, but if that port is already occupied it will use the next-available port. It should open automatically in your default browser once the server is running.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## File Structure
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+I created three directories to organize the files:
 
-### `npm test`
+- `/components` holds all of the React components.
+- `/data` holds the JSON file that is imported into the application.
+- `/utils` holds any helper functions that can be reused throughout the application.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## The Data
 
-### `npm run build`
+To make rendering the data more efficient, I have a helper function in `/utils/databaseHelpers.js` that reads the original data from the JSON file and structures it into a more accessible nested object. Doing this once when the application first loads should save time rendering the results since we can grab just the airports we want for the given year instead of filtering through the entire JSON file again.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+I plan on adding additional helper functions to help with rendering the table, such as:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- A function to calculate the total and average for the given year and airport
+- A function to calculate the percentages and return the rounded number to display in the table
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## To-Do
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Finish the `FilterForm` component. Currently all of the requested options are displayed in the drop down menus. The airports dropdown does not yet display which options have been selected.
+- Render a table with the results. The data is structured in a way that should make this
+  - Consider adding a separate component for a table row if the `Results` component becomes too complex.
+- Refactor the helper function in `databaseHelper.js`. It works fine as is but has nested `for` loops that could be cleaned up to be more readable.
+- Write tests
