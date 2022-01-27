@@ -27,3 +27,14 @@ export function processStatistics(rawJsonData) {
   console.log(airlineFilterOptions);
   return [airlineStats, airlineFilterOptions];
 }
+
+export function calculateNumberOfFlights(rawData) {
+  const results = {};
+  let aggregate = 0;
+  for (const month in rawData) {
+    aggregate += rawData[month].Flights.Total;
+    results[month] = rawData[month].Flights.Total;
+  }
+  results.aggregate = aggregate;
+  return results;
+}

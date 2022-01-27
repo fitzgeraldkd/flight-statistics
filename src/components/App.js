@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Container, Typography } from '@mui/material';
 import rawAirlineStats from '../data/airlines.json';
-import { processStatistics } from '../utils/databaseHelpers';
+import { processStatistics } from '../core/databaseHelpers';
 import Header from './Header';
 import FilterForm from './FilterForm';
 import Results from './Results';
