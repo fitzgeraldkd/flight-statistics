@@ -60,11 +60,10 @@ function FilterForm({ filters, filterOptions, handleFilterUpdate }) {
         <Select
           labelId='airport-select-label'
           id='airport-select'
-          name='airport'
+          name='airports'
           multiple
           value={filters.airports}
           onChange={handleFilterUpdate}
-          input={<Input label='Airports' />}
         >
           {renderSelectOptions('airports')}
         </Select>
