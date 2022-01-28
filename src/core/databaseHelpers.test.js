@@ -6,7 +6,10 @@ describe('calculateNumberOfFlights', () => {
   test('adds total when no months passed', () => {
     const rawData = {};
     const results = calculateNumberOfFlights(rawData);
-    expect(results.aggregate).toBe(0);
+    const expectedResults = {
+      aggregate: 0
+    };
+    expect(results).toStrictEqual(expectedResults);
   });
 
   test('adds total with three months', () => {
@@ -28,10 +31,13 @@ describe('calculateNumberOfFlights', () => {
       }
     };
     const results = calculateNumberOfFlights(rawData);
-    expect(results.January).toBe(9639);
-    expect(results.Febuary).toBe(9326);
-    expect(results.March).toBe(8801);
-    expect(results.aggregate).toBe(27766);
+    const expectedResults = {
+      January: 9639,
+      Febuary: 9326,
+      March: 8801,
+      aggregate: 27766
+    };
+    expect(results).toStrictEqual(expectedResults);
   });
 
   test('adds total with four months', () => {
@@ -58,10 +64,95 @@ describe('calculateNumberOfFlights', () => {
       }
     };
     const results = calculateNumberOfFlights(rawData);
-    expect(results.January).toBe(1000);
-    expect(results.Febuary).toBe(2000);
-    expect(results.March).toBe(3000);
-    expect(results.April).toBe(4000);
-    expect(results.aggregate).toBe(10000);
+    const expectedResults = {
+      January: 1000,
+      Febuary: 2000,
+      March: 3000,
+      April: 4000,
+      aggregate: 10000
+    };
+    expect(results).toStrictEqual(expectedResults);
+  });
+
+  test('adds total with twelve months', () => {
+    const rawData = {
+      "January": {
+        "Flights": {
+          "Total": 1000
+        }
+      },
+      "Febuary": {
+        "Flights": {
+          "Total": 2000
+        }
+      },
+      "March": {
+        "Flights": {
+          "Total": 3000
+        }
+      },
+      "April": {
+        "Flights": {
+          "Total": 4000
+        }
+      },
+      "May": {
+        "Flights": {
+          "Total": 5000
+        }
+      },
+      "June": {
+        "Flights": {
+          "Total": 6000
+        }
+      },
+      "July": {
+        "Flights": {
+          "Total": 7000
+        }
+      },
+      "August": {
+        "Flights": {
+          "Total": 8000
+        }
+      },
+      "September": {
+        "Flights": {
+          "Total": 9000
+        }
+      },
+      "October": {
+        "Flights": {
+          "Total": 10000
+        }
+      },
+      "November": {
+        "Flights": {
+          "Total": 11000
+        }
+      },
+      "December": {
+        "Flights": {
+          "Total": 12000
+        }
+      }
+    };
+    const results = calculateNumberOfFlights(rawData);
+    const expectedResults = {
+      January: 1000,
+      Febuary: 2000,
+      March: 3000,
+      April: 4000,
+      May: 5000,
+      June: 6000,
+      July: 7000,
+      August: 8000,
+      September: 9000,
+      October: 10000,
+      November: 11000,
+      December: 12000,
+      aggregate: 78000
+    };
+    expect(results).toStrictEqual(expectedResults);
   });
 });
