@@ -25,25 +25,24 @@ function App() {
     setFilters(currentFilters => ({ ...currentFilters, [e.target.name]: e.target.value }));
   };
 
-  if (!airlineStats || !filterOptions) {
-    return (
-      <Box>
-        <Header />
-        <Container sx={{ mt: 4 }}>
-          <Typography>
-            Loading flight statistics...
-          </Typography>
-        </Container>
-      </Box>
-    );
-  }
+  const filteredStats = [...filters.airports].sort().map(airport => ({
+    airport,
+    statistics: airlineStats[filters.year][airport][filters.statistic]
+  }));
   
   return (
     <Box>
       <Header />
       <Container sx={{ mt: 4 }}>
-        <FilterForm filters={filters} handleFilterUpdate={handleFilterUpdate} filterOptions={filterOptions} />
-        <Results />
+        {(!airlineStats || !filterOptions) ? 
+          <Typography>
+            Loading flight statistics...
+          </Typography> :
+          <>
+            <FilterForm filters={filters} handleFilterUpdate={handleFilterUpdate} filterOptions={filterOptions} />
+            <Results records={filteredStats} aggregateName={filters.statistic === 'numberOfFlights' ? 'Total' : 'Mean'}/>
+          </>
+        }
       </Container>
     </Box>
   );
