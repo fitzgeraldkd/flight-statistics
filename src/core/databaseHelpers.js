@@ -9,9 +9,29 @@ export function processStatistics(rawJsonData) {
     airlineFilterOptions.year.add(record.Time.Year);
     airlineFilterOptions.airports.add(record.Airport.Code);
     airlineStats[record.Time.Year] ||= {};
-    airlineStats[record.Time.Year][record.Airport.Code] ||= {};
-    airlineStats[record.Time.Year][record.Airport.Code][record.Time['Month Name']] = record.Statistics
+    airlineStats[record.Time.Year][record.Airport.Code] ||= { rawStatistics: {} };
+    airlineStats[record.Time.Year][record.Airport.Code].rawStatistics[record.Time['Month Name']] = record.Statistics
   }
+  const statistics = [
+    { name: 'flightsOnTime', numeratorKeys: ['Flights', 'On Time'] },
+    { name: 'flightsCanceled', numeratorKeys: ['Flights', 'Cancelled'] },
+    { name: 'flightsDiverted', numeratorKeys: ['Flights', 'Diverted'] },
+    { name: 'flightsDelayed', numeratorKeys: ['Flights', 'Delayed'] },
+    { name: 'flightsDelayed-Carrier', numeratorKeys: ['# of Delays', 'Carrier'] },
+    { name: 'flightsDelayed-LateAircraft', numeratorKeys: ['# of Delays', 'Late Aircraft'] },
+    { name: 'flightsDelayed-Weather', numeratorKeys: ['# of Delays', 'Weather'] },
+    { name: 'flightsDelayed-Security', numeratorKeys: ['# of Delays', 'Security'] },
+    { name: 'flightsDelayed-ATC', numeratorKeys: ['# of Delays', 'National Aviation System'] }
+  ];
+  for (const year in airlineStats) {
+    for (const airport in airlineStats[year]) {
+      airlineStats[year][airport].numberOfFlights = calculateNumberOfFlights(airlineStats[year][airport].rawStatistics)
+      for (const statistic of statistics) {
+        airlineStats[year][airport][statistic.name] = calculatePercentages(airlineStats[year][airport].rawStatistics, statistic.numeratorKeys)
+      }
+    }
+  }
+
   return [airlineStats, airlineFilterOptions];
 }
 
